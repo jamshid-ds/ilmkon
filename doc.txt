@@ -1,0 +1,86 @@
+# 📄 Project Documentation
+
+## 📦 Project Structure
+```
+your_bot_project/
+├── main.py                   # Entry point
+├── app.py                    # Startup, shutdown, and polling logic
+├── config.py                 # Environment variable loader
+│
+├── database/
+│   └── db.py                 # PostgreSQL connection and user queries
+│
+├── handlers/
+│   ├── registration.py       # Registration FSM
+│   ├── login.py              # Login FSM
+│   ├── voice.py              # STT → RAG → TTS handler
+│   └── common.py             # /start and /help commands
+│
+├── services/
+│   ├── stt.py                # Whisper STT
+│   ├── rag.py                # Gemini + FAISS retrieval model
+│   └── tts.py                # edge-tts (Text to Speech)
+│
+├── utils/
+│   ├── misc.py               # Hashing, ID, safe delete
+│   └── keyboards.py          # Inline keyboard builders
+│
+├── data/                     # Source documents for RAG
+├── faiss_index/              # FAISS vector store cache
+└── .env                      # API keys and DB credentials
+```
+
+---
+
+## ⚙️ Environment Variables (.env)
+```
+BOT_TOKEN=Your_Telegram_Bot_Token
+GEMINI_API_KEY=Your_Gemini_API_Key
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=yourdbname
+DB_USER=youruser
+DB_PASSWORD=yourpassword
+```
+
+---
+
+## 🧠 Functionality
+- **Registration/Login**: 
+  - Foydalanuvchi username, parol, ism, yosh kabi ma'lumotlarni kiritadi.
+  - FSM orqali ketma-ket ma'lumotlar olinadi va `PostgreSQL` bazaga yoziladi.
+
+- **Voice Q&A (RAG)**:
+  - Telegram'dan ovozli xabar olinadi
+  - STT: `Whisper` modeli orqali matnga aylantiriladi
+  - RAG: `FAISS + Gemini` yordamida tegishli hujjatlardan javob topiladi
+  - TTS: `edge-tts` orqali javob ovozga aylantirilib, foydalanuvchiga qaytariladi
+
+---
+
+## 🚀 How to Run
+```bash
+pip install -r requirements.txt
+python main.py
+```
+
+---
+
+## 📌 Developer Tips
+- Har bir modul mustaqil testlanadigan qilib yozilgan
+- Xatoliklar `logging` orqali kuzatib boriladi
+- `handlers/` ichidagi fayllar FSM'lar bilan ishlaydi
+- `services/` esa `model` larni yuklab va ishlatib beradi
+- `.env` fayl bo‘lmasa, `config.py` xatolik chiqaradi
+
+---
+
+## 🧩 Extending in Future
+- `RAG` logikasini OpenAI yoki boshqa LLM bilan almashtirish oson
+- TTS uchun `gTTS`, `Bark`, yoki `VITS` integratsiya qilinishi mumkin
+- `handlers/` ga profil tahrirlash, parol o‘zgartirish, va boshqalar qo‘shish mumkin
+
+---
+
+Loyiha modular tuzilgan — har bir bo‘limda kerakli faqat o‘sha logika saqlanadi.
+Boshqa dasturchilar ham tezda tushunib, qo‘shila olishadi ✅

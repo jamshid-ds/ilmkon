@@ -1,0 +1,14 @@
+aiogram==3.4.1
+asyncpg==0.29.0
+python-dotenv==1.0.1
+bcrypt==4.1.2
+pydub==0.25.1
+transformers==4.37.2
+torch==2.2.0
+edge-tts==6.1.10
+
+langchain==0.1.16
+langchain-google-genai==1.0.1
+langchain-community==0.0.33
+sentence-transformers==2.6.1
+faiss-cpu==1.7.4
